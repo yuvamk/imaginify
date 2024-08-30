@@ -1,12 +1,14 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+/* eslint-disable prefer-const */
+/* eslint-disable no-prototype-builtins */
+import { type ClassValue, clsx } from "clsx";
 import qs from "qs";
+import { twMerge } from "tailwind-merge";
+
 import { aspectRatioOptions } from "@/constants";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
-
 
 // ERROR HANDLER
 export const handleError = (error: unknown) => {
@@ -24,7 +26,6 @@ export const handleError = (error: unknown) => {
     throw new Error(`Unknown error: ${JSON.stringify(error)}`);
   }
 };
-
 
 // PLACEHOLDER LOADER - while image is transforming
 const shimmer = (w: number, h: number) => `

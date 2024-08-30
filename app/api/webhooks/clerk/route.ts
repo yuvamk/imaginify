@@ -64,11 +64,12 @@ export async function POST(req: Request) {
     const user: CreateUserParams = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      username: username!, // Assuming `username` is always defined
-      firstName: first_name ?? "",
-      lastName: last_name ?? "",
-      photo: image_url,
+      username: username! || '', // Fallback to empty string if null
+      firstName: first_name || '', // Fallback to empty string if null
+      lastName: last_name || '', // Fallback to empty string if null
+      photo: image_url || '', // Fallback to empty string if null
     };
+    
     
     const newUser = await createUser(user);
     
@@ -90,8 +91,8 @@ export async function POST(req: Request) {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user: UpdateUserParams = {
-      firstName: first_name ?? "",
-      lastName: last_name ?? "",
+      firstName: first_name || '',
+      lastName: last_name || '' ,
       username: username!, // Assuming `username` is always defined
       photo: image_url,
     };

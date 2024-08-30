@@ -61,16 +61,17 @@ export async function POST(req: Request) {
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
 
-    const User = {
+    const user: CreateUserParams = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      username: username!,
+      username: username!, // Assuming `username` is always defined
       firstName: first_name ?? "",
       lastName: last_name ?? "",
       photo: image_url,
     };
-
-    const newUser = await createUser(User);
+    
+    const newUser = await createUser(user);
+    
 
     // Set public metadata
     if (newUser) {
@@ -88,15 +89,15 @@ export async function POST(req: Request) {
   if (eventType === "user.updated") {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
-    const User = {
+    const user: UpdateUserParams = {
       firstName: first_name ?? "",
       lastName: last_name ?? "",
-      username: username!,
+      username: username!, // Assuming `username` is always defined
       photo: image_url,
     };
-
-    const updatedUser = await updateUser(id, User);
-
+    
+    const updatedUser = await updateUser(id, user);
+    
     return NextResponse.json({ message: "OK", user: updatedUser });
   }
 
